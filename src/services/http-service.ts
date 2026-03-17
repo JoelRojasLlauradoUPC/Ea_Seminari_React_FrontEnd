@@ -1,7 +1,5 @@
 import apiClient from "./api-client";
 
-// This type is a union of two possible shapes for an entity's identity.
-// It helps enforce that an entity must have one of these ID properties.
 type EntityWithId = { id: number } | { _id: string };
 
 class HttpService {
@@ -28,12 +26,20 @@ class HttpService {
   }
 
   update<T extends EntityWithId>(entity: T) {
-    // The 'in' operator checks for the property, and TypeScript is smart
-    // enough to narrow down the type of 'entity' within each block.
-    if ("_id" in entity) {
-      return apiClient.patch(this.endpoint + "/" + entity._id, entity);
-    }
-    return apiClient.patch(this.endpoint + "/" + entity.id, entity);
+    // Get the ID for the URL path
+    const entityId = "_id" in entity ? entity._id : entity.id;
+
+    // Create a clean payload for the request body
+    const payload = { ...entity };
+
+    // Delete fields that the backend typically manages and rejects in PUT requests
+    delete (payload as any)._id;
+    delete (payload as any).id;
+    delete (payload as any).createdAt;
+    delete (payload as any).updatedAt;
+    delete (payload as any).__v; // Also common in Mongoose
+
+    return apiClient.put(this.endpoint + "/" + entityId, payload);
   }
 }
 
