@@ -148,3 +148,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 5. Open a Pull Request
 
 For questions or support, please open an issue in the repository.
+
+## Materials Consultats
+- Els disponibles a Atenea.
+- Els publicats pel grup que ha presentat el seminari.
+
+## Detall d'ús de la IA generativa
+No s' ha utlitzat IA durant el desenvolupament del codi però si per fer una revisió final. Amb la revisió final no s'ha fet cap canvi. Eina utilitzada: ChatGPT.
+
+## Vídeo amb la DEMO
+https://youtu.be/3kPR9GY_q7Q
